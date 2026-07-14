@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mamuli Gremi — от Gremi Hall к единой экосистеме</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream: #efeada;
+    --cream-2: #e7e0c9;
+    --paper: #fbf9f1;
+    --ink: #26261f;
+    --ink-soft: #55523f;
+    --green-deep: #37402f;
+    --green-mid: #4b5a3c;
+    --green-soft: #6b7a54;
+    --gold: #a9812e;
+    --gold-soft: #cfae67;
+    --clay: #a85a3a;
+    --line: #dad4be;
+    --shadow: 0 30px 60px -30px rgba(38,38,31,0.25);
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: radial-gradient(120% 90% at 50% -10%, #f4efdf 0%, var(--cream) 45%, var(--cream-2) 100%);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 0;
+  }
+  em{ font-style: italic; font-weight: 400; color: var(--green-mid); }
+  a{ color: inherit; }
+  .container{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  ::selection{ background: var(--gold-soft); color: var(--ink); }
+
+  /* progress bar */
+  #progress{
+    position: fixed; top:0; left:0; height:3px; width:0%;
+    background: linear-gradient(90deg, var(--green-mid), var(--gold));
+    z-index: 999; transition: width .1s linear;
+  }
+
+  /* nav */
+  header{
+    position: sticky; top:0; z-index: 90;
+    backdrop-filter: blur(10px);
+    background: rgba(239,234,218,0.72);
+    border-bottom: 1px solid var(--line);
+    transition: padding .3s var(--ease);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 20px 32px; max-width: 1120px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Fraunces', serif; font-weight: 600; font-size: 20px;
+    letter-spacing: 0.01em;
+  }
+  .logo span{ color: var(--gold); font-style: italic; font-weight: 400; }
+  .navlinks{ display:flex; gap: 28px; list-style:none; margin:0; padding:0; }
+  .navlinks a{
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
+    text-decoration:none; color: var(--ink-soft); font-weight: 500;
+    padding-bottom: 4px; border-bottom: 1px solid transparent;
+    transition: color .25s, border-color .25s;
+  }
+  .navlinks a:hover{ color: var(--green-deep); border-color: var(--gold); }
+  .navtoggle{ display:none; background:none; border:none; cursor:pointer; }
+  @media (max-width: 860px){
+    .navlinks{ display:none; }
+  }
+
+  /* reveal */
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+  .reveal-stagger > *{ opacity:0; transform: translateY(22px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal-stagger.in > *{ opacity:1; transform: translateY(0); }
+  .reveal-stagger.in > *:nth-child(1){ transition-delay: .05s; }
+  .reveal-stagger.in > *:nth-child(2){ transition-delay: .15s; }
+  .reveal-stagger.in > *:nth-child(3){ transition-delay: .25s; }
+  .reveal-stagger.in > *:nth-child(4){ transition-delay: .35s; }
+  .reveal-stagger.in > *:nth-child(5){ transition-delay: .45s; }
+
+  /* eyebrow */
+  .eyebrow{
+    display:flex; align-items:center; gap: 10px;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.16em;
+    color: var(--green-mid); font-weight: 600; margin-bottom: 18px;
+  }
+  .eyebrow::before{
+    content:''; width: 26px; height: 1px; background: var(--gold);
+  }
+
+  section{ padding: 120px 0; position: relative; }
+  section + section{ border-top: 1px solid var(--line); }
+
+  /* HERO */
+  .hero{
+    padding-top: 90px; padding-bottom: 60px; border-top:none;
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items:center;
+  }
+  .hero-kicker{
+    font-size: 13px; letter-spacing: 0.14em; text-transform:uppercase;
+    color: var(--clay); font-weight: 600; margin-bottom: 22px;
+  }
+  .hero h1{
+    font-size: clamp(38px, 5.4vw, 66px);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+  }
+  .hero p.lede{
+    font-size: 19px; color: var(--ink-soft); max-width: 46ch; margin-top: 26px;
+  }
+  .hero-actions{ margin-top: 38px; display:flex; gap: 18px; align-items:center; flex-wrap: wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap: 10px;
+    background: var(--green-deep); color: var(--paper);
+    padding: 15px 28px; border-radius: 3px; text-decoration:none;
+    font-size: 14px; letter-spacing: 0.03em; font-weight: 600;
+    box-shadow: var(--shadow);
+    transition: transform .3s var(--ease), background .3s;
+  }
+  .btn:hover{ transform: translateY(-3px); background: #2b3324; }
+  .btn-ghost{
+    background:none; color: var(--ink); border: 1px solid var(--line);
+    box-shadow:none;
+  }
+  .btn-ghost:hover{ border-color: var(--green-mid); color: var(--green-deep); transform: translateY(-3px); background: none;}
+
+  /* signature loop diagram */
+  .loop-wrap{ display:flex; justify-content:center; align-items:center; }
+  .loop-svg{ width: 100%; max-width: 420px; height: auto; }
+  .loop-path{
+    fill:none; stroke: var(--green-soft); stroke-width: 1.4;
+    stroke-dasharray: 900; stroke-dashoffset: 900;
+    transition: stroke-dashoffset 2.4s var(--ease);
+  }
+  .loop-path.in{ stroke-dashoffset: 0; }
+  .loop-node circle{ fill: var(--paper); stroke: var(--green-deep); stroke-width: 1.3; }
+  .loop-node text{
+    font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight:600;
+    fill: var(--ink); text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  .loop-dot{
+    fill: var(--gold);
+    offset-path: path('M200,58 C300,58 342,140 342,200 C342,260 300,342 200,342 C100,342 58,260 58,200 C58,140 100,58 200,58 Z');
+    animation: travel 9s linear infinite;
+    opacity: 0;
+  }
+  .loop-svg.animate .loop-dot{ opacity: 1; }
+  @keyframes travel{ from{ offset-distance: 0%; } to{ offset-distance: 100%; } }
+  .loop-center{ font-family:'Fraunces', serif; font-style: italic; font-size: 15px; fill: var(--ink-soft); }
+
+  @media (prefers-reduced-motion: reduce){
+    .loop-dot{ animation: none; opacity: .9; }
+    .reveal, .reveal-stagger > *{ transition: none; opacity:1; transform:none; }
+  }
+
+  @media (max-width: 900px){
+    .hero{ grid-template-columns: 1fr; }
+    .loop-wrap{ order: -1; margin-bottom: 10px; }
+  }
+
+  /* quote / idea block */
+  .idea-quote{
+    font-family:'Fraunces', serif; font-weight: 400; font-style: italic;
+    font-size: clamp(22px, 3vw, 32px); line-height: 1.4; color: var(--green-deep);
+    max-width: 800px; margin: 0 auto 40px; text-align:center;
+    padding: 0 10px;
+  }
+  .idea-quote::before{ content:'“'; color: var(--gold); font-style: normal; }
+  .idea-quote::after{ content:'”'; color: var(--gold); font-style: normal; }
+
+  .callout{
+    background: var(--paper); border-left: 3px solid var(--gold);
+    padding: 26px 30px; border-radius: 2px; max-width: 760px; margin: 40px auto 0;
+    font-size: 16px; color: var(--ink-soft); box-shadow: var(--shadow);
+  }
+  .callout strong{ color: var(--ink); }
+
+  .lede-center{ text-align:center; max-width: 680px; margin: 0 auto 56px; color: var(--ink-soft); font-size: 17px;}
+
+  /* place / proof cards */
+  .place-grid{ display:grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items:start; }
+  .place-list{ list-style:none; margin: 0; padding:0; }
+  .place-list li{
+    padding: 18px 0; border-bottom: 1px solid var(--line);
+    display:flex; gap: 16px; font-size: 15.5px; color: var(--ink-soft);
+  }
+  .place-list li:last-child{ border-bottom:none; }
+  .place-list b{ color: var(--ink); font-weight: 600; min-width: 130px; flex-shrink:0; }
+
+  .proof-cards{ display:flex; flex-direction:column; gap: 18px; }
+  .proof-card{
+    background: var(--paper); padding: 24px 26px; border-radius: 4px;
+    box-shadow: var(--shadow); transition: transform .35s var(--ease);
+  }
+  .proof-card:hover{ transform: translateY(-4px); }
+  .proof-card h3{ font-size: 18px; margin-bottom: 8px; }
+  .proof-card p{ margin:0; color: var(--ink-soft); font-size: 14.5px; }
+
+  /* differentiators */
+  .diff-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow:hidden;
+  }
+  .diff-item{
+    background: var(--paper); padding: 34px 28px; min-height: 170px;
+    display:flex; flex-direction:column; justify-content:flex-end; gap:10px;
+    transition: background .3s;
+  }
+  .diff-item:hover{ background: #fffdf6; }
+  .diff-num{ font-family:'Fraunces', serif; font-style:italic; color: var(--gold); font-size: 15px; }
+  .diff-item h3{ font-size: 17px; }
+  @media (max-width: 800px){ .diff-grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px){ .diff-grid{ grid-template-columns: 1fr; } }
+
+  /* scenarios */
+  .scen-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 26px; }
+  .scen-card{
+    background: var(--paper); border-radius: 6px; padding: 34px 30px;
+    box-shadow: var(--shadow); position:relative; overflow:hidden;
+    transition: transform .4s var(--ease), box-shadow .4s;
+  }
+  .scen-card:hover{ transform: translateY(-6px); box-shadow: 0 40px 70px -30px rgba(38,38,31,0.32); }
+  .scen-card::before{
+    content:''; position:absolute; top:0; left:0; width:100%; height:4px;
+    background: linear-gradient(90deg, var(--green-mid), var(--gold));
+    transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease);
+  }
+  .scen-card:hover::before{ transform: scaleX(1); }
+  .scen-card h3{ font-size: 21px; margin-bottom: 12px; }
+  .scen-card p{ color: var(--ink-soft); font-size: 15px; margin: 0 0 18px; }
+  .tag{
+    display:inline-block; font-size: 12px; letter-spacing:0.04em; font-weight:600;
+    color: var(--clay); text-transform: uppercase; border: 1px solid rgba(168,90,58,0.3);
+    padding: 6px 12px; border-radius: 20px;
+  }
+  .scen-star{
+    margin-top: 30px; padding-top: 20px; border-top: 1px dashed var(--line);
+    font-size: 14.5px; color: var(--green-deep); font-weight: 500;
+  }
+  @media (max-width: 760px){ .scen-grid{ grid-template-columns: 1fr; } }
+
+  /* channels */
+  .chan-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 30px; }
+  .chan-card{ text-align:left; }
+  .chan-icon{
+    width: 46px; height: 46px; border-radius: 50%;
+    border: 1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-style:italic; font-size: 19px; color: var(--gold);
+    margin-bottom: 18px;
+  }
+  .chan-card h3{ font-size: 18px; margin-bottom: 10px; }
+  .chan-card p{ color: var(--ink-soft); font-size: 14.5px; margin:0; }
+  @media (max-width: 800px){ .chan-grid{ grid-template-columns: 1fr; gap: 40px; } }
+
+  /* audit */
+  .audit-wrap{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--line); border-radius: 6px; overflow:hidden;
+  }
+  .audit-col{ padding: 40px 36px; }
+  .audit-col.now{ background: #f3ede0; }
+  .audit-col.fix{ background: var(--paper); }
+  .audit-col h3{
+    font-size: 14px; text-transform:uppercase; letter-spacing: 0.1em;
+    margin-bottom: 22px; display:flex; align-items:center; gap: 10px;
+  }
+  .audit-col.now h3{ color: var(--clay); }
+  .audit-col.fix h3{ color: var(--green-mid); }
+  .audit-item{ padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .audit-item:last-child{ border-bottom:none; }
+  .audit-item b{ display:block; margin-bottom: 4px; color: var(--ink); }
+  .audit-item span{ color: var(--ink-soft); font-size: 14px; }
+  @media (max-width: 800px){ .audit-wrap{ grid-template-columns: 1fr; } }
+
+  .audit-note{
+    text-align:center; margin-top: 34px; color: var(--ink-soft); font-size: 15px;
+  }
+  .audit-note b{ color: var(--green-deep); }
+
+  /* launch by readiness */
+  .timeline{ position:relative; margin-top: 20px; }
+  .timeline::before{
+    content:''; position:absolute; left: 21px; top: 8px; bottom: 8px; width: 1px;
+    background: var(--line);
+  }
+  .tl-item{ position:relative; padding-left: 66px; margin-bottom: 44px; }
+  .tl-item:last-child{ margin-bottom: 0; }
+  .tl-dot{
+    position:absolute; left: 0; top: 2px; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--paper); border: 1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif; font-weight:600; color: var(--green-deep);
+  }
+  .tl-item h3{ font-size: 19px; margin-bottom: 8px; }
+  .tl-item p{ color: var(--ink-soft); margin:0; font-size: 15px; max-width: 60ch; }
+  .tl-item .when{ font-size: 12.5px; text-transform:uppercase; letter-spacing:0.08em; color: var(--clay); font-weight:600; margin-bottom:6px; display:block; }
+
+  .scenario-branches{
+    display:grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 60px;
+  }
+  .branch{
+    padding: 22px 22px; border: 1px solid var(--line); border-radius: 4px; background: var(--paper);
+  }
+  .branch .when{ font-family:'Fraunces', serif; font-style:italic; color: var(--gold); font-size: 16px; display:block; margin-bottom: 8px; }
+  .branch p{ margin:0; font-size: 14px; color: var(--ink-soft); }
+  @media (max-width: 760px){ .scenario-branches{ grid-template-columns: 1fr; } }
+
+  /* roadmap */
+  .roadmap{ counter-reset: step; }
+  .rm-item{
+    counter-increment: step;
+    display:grid; grid-template-columns: 70px 1fr 1fr; gap: 26px;
+    padding: 30px 0; border-bottom: 1px solid var(--line); align-items:start;
+  }
+  .rm-item:first-child{ padding-top: 0; }
+  .rm-item:last-child{ border-bottom:none; }
+  .rm-num{
+    font-family:'Fraunces', serif; font-size: 30px; font-style: italic; color: var(--gold);
+  }
+  .rm-item h3{ font-size: 17px; margin-bottom: 6px; }
+  .rm-item .what{ color: var(--ink-soft); font-size: 14.5px; }
+  .rm-item .gain{ color: var(--green-deep); font-size: 14.5px; font-weight:500; }
+  .rm-label{ font-size: 11px; text-transform:uppercase; letter-spacing:0.08em; color: var(--ink-soft); margin-bottom:4px; display:block; }
+  @media (max-width: 760px){
+    .rm-item{ grid-template-columns: 1fr; gap: 8px; }
+    .rm-num{ font-size: 22px; }
+  }
+
+  /* CTA / next step */
+  .cta-section{
+    background: var(--green-deep); color: var(--paper); border-top:none;
+    border-radius: 10px; margin: 0 32px; padding: 90px 60px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .cta-section::after{
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(60% 60% at 80% 0%, rgba(169,129,46,0.25), transparent 60%);
+  }
+  .cta-section .container{ position:relative; z-index:1; }
+  .cta-section h2{ color: var(--paper); font-size: clamp(28px, 4vw, 42px); max-width: 700px; margin: 0 auto 20px; }
+  .cta-section p{ color: #d9d6c4; max-width: 560px; margin: 0 auto 36px; font-size: 16px; }
+  .cta-section .btn{ background: var(--gold); color: var(--green-deep); }
+  .cta-section .btn:hover{ background: var(--gold-soft); }
+  .cta-section .btn-ghost{ color: var(--paper); border-color: rgba(251,249,241,0.35); }
+  .cta-section .btn-ghost:hover{ color: var(--paper); border-color: var(--paper); }
+
+  /* closing */
+  .closing{ text-align:center; padding-top: 100px; padding-bottom: 70px; border-top:none; }
+  .closing h2{ font-size: clamp(30px, 4.4vw, 48px); max-width: 780px; margin: 0 auto 24px; line-height:1.25; }
+  .closing .signoff{ font-family:'Fraunces', serif; font-style: italic; font-size: 20px; color: var(--gold); margin-top: 30px; }
+
+  footer{
+    padding: 40px 32px; text-align:center; color: var(--ink-soft); font-size: 13px;
+    border-top: 1px solid var(--line);
+  }
+
+  h2.section-title{ font-size: clamp(28px, 3.6vw, 40px); max-width: 640px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header>
+  <nav>
+    <div class="logo">Mamuli <span>Gremi</span></div>
+    <ul class="navlinks">
+      <li><a href="#idea">Идея</a></li>
+      <li><a href="#place">Место</a></li>
+      <li><a href="#scenarios">Опыты</a></li>
+      <li><a href="#channels">Каналы</a></li>
+      <li><a href="#audit">Аудит</a></li>
+      <li><a href="#launch">Запуск</a></li>
+      <li><a href="#roadmap">Дорожная карта</a></li>
+      <li><a href="#next">Следующий шаг</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero container">
+  <div>
+    <div class="hero-kicker reveal">From Gremi Hall to Mamuli Gremi</div>
+    <h1 class="reveal">Виноградники, винодельня и отель — <em>одно место</em>, ради которого едут и в котором остаются</h1>
+    <p class="lede reveal">Ремонт — не простой, а стратегическая пауза. Мы возвращаем комплекс не косметикой, а спокойным управляемым камбэком: с новым именем, собранным спросом и порядком в системе — к моменту, когда откроются двери.</p>
+    <div class="hero-actions reveal">
+      <a class="btn" href="#idea">Смотреть логику запуска</a>
+      <a class="btn btn-ghost" href="#roadmap">Дорожная карта</a>
+    </div>
+  </div>
+  <div class="loop-wrap reveal">
+    <svg class="loop-svg" viewBox="0 0 400 400">
+      <path class="loop-path" d="M200,58 C300,58 342,140 342,200 C342,260 300,342 200,342 C100,342 58,260 58,200 C58,140 100,58 200,58 Z"/>
+      <circle class="loop-dot" r="5"/>
+      <text class="loop-center" x="200" y="196" text-anchor="middle">единая</text>
+      <text class="loop-center" x="200" y="220" text-anchor="middle">экосистема</text>
+      <g class="loop-node">
+        <circle cx="200" cy="58" r="34"/>
+        <text x="200" y="55" text-anchor="middle">Вино-</text>
+        <text x="200" y="68" text-anchor="middle">градники</text>
+      </g>
+      <g class="loop-node">
+        <circle cx="342" cy="200" r="34"/>
+        <text x="342" y="197" text-anchor="middle">Вино-</text>
+        <text x="342" y="210" text-anchor="middle">дельня</text>
+      </g>
+      <g class="loop-node">
+        <circle cx="200" cy="342" r="34"/>
+        <text x="200" y="346" text-anchor="middle">Отель</text>
+      </g>
+      <g class="loop-node">
+        <circle cx="58" cy="200" r="34"/>
+        <text x="58" y="197" text-anchor="middle">Гость</text>
+        <text x="58" y="210" text-anchor="middle">рассказывает</text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- IDEA -->
+<section id="idea" class="container">
+  <div class="eyebrow reveal">01 — Идея</div>
+  <p class="idea-quote reveal">Mamuli Gremi — это единая экосистема: виноградники, винодельня и отель как одно место, ради которого едут и в котором остаются</p>
+  <p class="lede-center reveal">Части кормят друг друга: виноградники дают продукт, винодельня превращает его в вино и опыт, отель продаёт этот опыт гостю, а гость увозит вино и рассказывает о месте. Поэтому мы не продаём отдельно номер и отдельно бутылку — мы продаём целое. Ставка не на масштаб, а на подлинность и на то, что всё работает как единое целое.</p>
+  <div class="callout reveal">
+    <strong>Ремонт — это не простой, а стратегическая пауза.</strong> Место закрыто — значит, можно вернуться не с косметическим обновлением, а с полноценным камбэком и новым именем. Задача — чтобы к открытию у комплекса уже были собранный спрос и порядок в системе.
+  </div>
+</section>
+
+<!-- PLACE -->
+<section id="place" class="container">
+  <div class="eyebrow reveal">02 — Соседство и рынок</div>
+  <h2 class="section-title reveal">Историческое сердце Кахетии — уже приводит сюда людей</h2>
+  <div class="place-grid">
+    <ul class="place-list reveal-stagger">
+      <li><b>15 минут пешком</b> цитадель и храм бывшей столицы царства — рядом, но это памятник, не часть комплекса</li>
+      <li><b>Монастырь Некреси</b> — один из ключевых маршрутов винного туризма Кахетии</li>
+      <li><b>Озёра под Кварели</b> — вторая точка притяжения региона в получасе езды</li>
+      <li><b>Смещение рынка</b> — от «ещё одной бутылки на полке» к впечатлению: приехать, увидеть, попробовать у источника</li>
+    </ul>
+    <div class="proof-cards reveal-stagger">
+      <div class="proof-card">
+        <h3>Pheasant's Tears</h3>
+        <p>Начинали почти с нуля и стали мировым именем на подлинности и собственной истории.</p>
+      </div>
+      <div class="proof-card">
+        <h3>Château Mukhrani</h3>
+        <p>Подняли усадьбу и сделали её местом, куда едут за историей, — а вино и опыт выстроились вокруг.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT COMPLEX CREATES -->
+<section class="container">
+  <div class="eyebrow reveal">03 — Что создаёт сам комплекс</div>
+  <h2 class="section-title reveal">Историю даёт место. Но возвращаются за тем, что сделано здесь и сейчас</h2>
+  <div class="diff-grid reveal-stagger">
+    <div class="diff-item"><div class="diff-num">Вино</div><h3>Свой подход и лицо винодела</h3></div>
+    <div class="diff-item"><div class="diff-num">Территория</div><h3>Озеро, зона среди виноградников, площадка для событий</h3></div>
+    <div class="diff-item"><div class="diff-num">Кухня</div><h3>Ресторан с местным колоритом</h3></div>
+    <div class="diff-item"><div class="diff-num">Отель</div><h3>Бассейн с видом, номера, атмосфера дома</h3></div>
+    <div class="diff-item"><div class="diff-num">Взгляд</div><h3>Ваше видение того, чем место должно стать</h3></div>
+    <div class="diff-item"><div class="diff-num">Детали</div><h3>Реальные, а не красивые слова — то, что делает место живым</h3></div>
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section id="scenarios" class="container">
+  <div class="eyebrow reveal">04 — Образы, которые можно прожить</div>
+  <h2 class="section-title reveal">Человек бронирует не «номер и дегустацию» — он бронирует образ опыта</h2>
+  <p class="lede-center reveal" style="margin-left:0; text-align:left; max-width:70ch;">Несколько сценариев — из них вместе выбираем, что собрать и запустить первым.</p>
+  <div class="scen-grid reveal-stagger">
+    <div class="scen-card">
+      <h3>Сезон сбора</h3>
+      <p>Ртвели: гость участвует в сборе, видит, как из винограда получается вино, и садится за общий стол. Виноградник уходит до самой долины.</p>
+      <span class="tag">Пары, компании из Тбилиси, иностранные гости</span>
+    </div>
+    <div class="scen-card">
+      <h3>Отдых у виноградников</h3>
+      <p>Номер с видом на долину, бассейн, ресторан, спокойный вечер — комфортная пауза в получасе от винных маршрутов Кахетии.</p>
+      <span class="tag">Пары и семьи, уставший город</span>
+    </div>
+    <div class="scen-card">
+      <h3>Ужин с виноделом</h3>
+      <p>Кахетинский стол и несколько вин из собственного погреба; винодел сам рассказывает, что у вас в бокале. Для тех, кто хочет короче, — отдельная дегустация.</p>
+      <span class="tag">Гастро-туристы, гиды с группами</span>
+    </div>
+    <div class="scen-card">
+      <h3>Событие на территории</h3>
+      <p>Своя площадка под свадьбу, приём или корпоратив: событийная зона среди виноградников, бассейн, ресторан, рядом озеро и виды.</p>
+      <span class="tag">Организаторы, компании, сообщества</span>
+    </div>
+  </div>
+  <div class="scen-star reveal">Точка входа: один собранный вечер (винодельня → дегустация → ужин → ночь) — он легко объясняется, снимается и годится под ранние брони. Первый из сценариев, но не единственный.</div>
+</section>
+
+<!-- CHANNELS -->
+<section id="channels" class="container">
+  <div class="eyebrow reveal">05 — Как это расходится</div>
+  <h2 class="section-title reveal">Идея лежит наверху. Вниз она расходится по каналам</h2>
+  <div class="chan-grid reveal-stagger">
+    <div class="chan-card">
+      <div class="chan-icon">С</div>
+      <h3>Самопродвигающийся контент</h3>
+      <p>Соцсети сами показывают контент тем, кому тема близка. Живые сцены и реальный интерес удерживают внимание и ведут на страницу — не безликие кадры, а опыт выходного дня, который хочется примерить на себя.</p>
+    </div>
+    <div class="chan-card">
+      <div class="chan-icon">П</div>
+      <h3>Партнёры, которым выгодно вести к нам</h3>
+      <p>Гиды, операторы и авторы уже возят людей и зарабатывают на этом. Небольшой первый круг таких партнёров оживит место быстрее рекламы — особенно при плавающих сроках открытия.</p>
+    </div>
+    <div class="chan-card">
+      <div class="chan-icon">В</div>
+      <h3>Вино как амбассадор</h3>
+      <p>Пока идёт ремонт, вино уже готово. Брендированная бутылка с личным приглашением — это и PR, и первый гость. QR на экспортной бутылке связывает вино с местом, где оно родилось.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIT -->
+<section id="audit" class="container">
+  <div class="eyebrow reveal">06 — Что показал аудит</div>
+  <h2 class="section-title reveal">Не критика прошлого — потери, которые чиним первыми</h2>
+  <div class="audit-wrap reveal">
+    <div class="audit-col now">
+      <h3>Сегодня в поиске</h3>
+      <div class="audit-item"><b>Бренд принадлежит не вам</b><span>Официальный сайт слабый и почти невидим — сверху выдачи чужие агрегаторы продают комплекс под вашим именем, в рублях</span></div>
+      <div class="audit-item"><b>Место трудно найти</b><span>Карты уводят гостей «в поле» — люди расспрашивают местных, часть просто разворачивается</span></div>
+      <div class="audit-item"><b>Площадки недооценивают комплекс</b><span>Числится как «хостел», старые отзывы годами без ответов, статус «временно закрыт» — гость уходит к соседу с рейтингом 9.6</span></div>
+    </div>
+    <div class="audit-col fix">
+      <h3>Единый цифровой контур</h3>
+      <div class="audit-item"><b>Один официальный сайт</b><span>С прямой бронью — самые выгодные заезды перестают утекать агрегаторам</span></div>
+      <div class="audit-item"><b>Выправленные метки и маршрут</b><span>На всех картах — гость приезжает прямо к воротам, а не «в поле»</span></div>
+      <div class="audit-item"><b>Единая подача и синхронизация</b><span>Сайт, карты и брони обновляются вместе: готово — показано, не готово — честно написано</span></div>
+    </div>
+  </div>
+  <p class="audit-note reveal">При этом на Google у места уже сильная история — <b>4.9</b>. База есть, её нужно вернуть в игру.</p>
+</section>
+
+<!-- LAUNCH BY READINESS -->
+<section id="launch" class="container">
+  <div class="eyebrow reveal">07 — Запуск по готовности объекта</div>
+  <h2 class="section-title reveal">Не по календарю, а по логике «готово [это] → делаем [то]»</h2>
+  <div class="timeline reveal-stagger">
+    <div class="tl-item">
+      <div class="tl-dot">1</div>
+      <span class="when">Идёт ремонт — сейчас</span>
+      <h3>Контроль карт и площадок</h3>
+      <p>Статус «обновление до [месяца]», страница-прогрев и сбор листа ожидания — контакты тех, кто приедет первым.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">2</div>
+      <span class="when">За 2–3 недели</span>
+      <h3>Первая готовая зона</h3>
+      <p>Достаточно одного премиум-номера, террасы и винодельни — снимаем первые реальные кадры, открываем предброни по цене первооткрывателя.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">3</div>
+      <span class="when">За неделю</span>
+      <h3>Объект чист и готов</h3>
+      <p>Анонс тихого открытия по своей базе и по партнёрам.</p>
+    </div>
+  </div>
+  <div class="scenario-branches reveal-stagger">
+    <div class="branch"><span class="when">Середина августа</span><p>Забираем уходящее лето</p></div>
+    <div class="branch"><span class="when">Конец августа</span><p>Главный оффер строим вокруг Ртвели — сбора урожая, ради которого едут целенаправленно</p></div>
+    <div class="branch"><span class="when">Сентябрь</span><p>Фокус на деловой аудитории: корпоративы и выездные сессии в «бизнес-убежище» Кахетии</p></div>
+  </div>
+  <p class="lede-center reveal" style="margin-top:56px;">Открытие — не «перерезание ленточки», а событие, которое сразу задаёт планку. Первый круг гостей — гиды, авторы, партнёры — проживают место, снимают контент и приводят первых настоящих гостей.</p>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="container">
+  <div class="eyebrow reveal">08 — Дорожная карта</div>
+  <h2 class="section-title reveal">Шесть шагов, каждый — с точкой, где решение за вами</h2>
+  <div class="roadmap reveal-stagger">
+    <div class="rm-item">
+      <div class="rm-num">0</div>
+      <div><span class="rm-label">Что делаем</span><h3>Вектор</h3><p class="what">Договориться о позиционировании и логике запуска</p></div>
+      <div><span class="rm-label">Что это даёт</span><p class="gain">Общий язык и направление</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-num">1</div>
+      <div><span class="rm-label">Что делаем</span><h3>Сверка и контур</h3><p class="what">Приезжаем на объект, сверяем готовность, берём под контроль сайт, карты и площадки, ставим прогрев</p></div>
+      <div><span class="rm-label">Что это даёт</span><p class="gain">Порядок, доверие, собранный спрос до открытия</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-num">2</div>
+      <div><span class="rm-label">Что делаем</span><h3>Стратегия и ТЗ</h3><p class="what">Прописываем каналы и контент, готовим ТЗ на съёмку под ваше согласование</p></div>
+      <div><span class="rm-label">Что это даёт</span><p class="gain">Понятная картина «что и почему»</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-num">3</div>
+      <div><span class="rm-label">Что делаем</span><h3>Голос и посев</h3><p class="what">Съёмка первой готовой зоны, истории по рубрикам, тихое открытие для гидов и партнёров</p></div>
+      <div><span class="rm-label">Что это даёт</span><p class="gain">Внимание и первые партнёры</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-num">4</div>
+      <div><span class="rm-label">Что делаем</span><h3>Открытие-событие</h3><p class="what">Камбэк-событие под сценарий сезона; включение броней и обработки заявок</p></div>
+      <div><span class="rm-label">Что это даёт</span><p class="gain">Первые гости, отзывы, живой след</p></div>
+    </div>
+    <div class="rm-item">
+      <div class="rm-num">5</div>
+      <div><span class="rm-label">Что делаем</span><h3>Система Mamuli Gremi</h3><p class="what">Продукты и события, партнёрские маршруты, экспортная линейка</p></div>
+      <div><span class="rm-label">Что это даёт</span><p class="gain">Устойчивое имя и постоянный поток</p></div>
+    </div>
+  </div>
+  <p class="lede-center reveal" style="margin-top:44px;">Состав, сроки и бюджет каждого этапа определяются после сверки на объекте.</p>
+</section>
+
+<!-- CTA -->
+<section id="next" style="border-top:none; padding: 70px 0;">
+  <div class="cta-section reveal">
+    <div class="container">
+      <h2>Следующий шаг — зафиксировать вектор</h2>
+      <p>На созвоне достаточно согласовать позиционирование — единая экосистема, камбэк — и логику запуска по готовности. Дальше — очная встреча на объекте: смотрим реальную готовность, делаем первые технические кадры и кладём на неё детальный план, сроки и бюджет.</p>
+      <div class="hero-actions" style="justify-content:center;">
+        <a class="btn" href="#idea">Обсудить вектор</a>
+        <a class="btn btn-ghost" href="#roadmap">Ещё раз посмотреть карту</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing container">
+  <div class="eyebrow reveal" style="justify-content:center;">09 — Итог</div>
+  <h2 class="reveal">Историю даёт место. Культуру и смысл — вино. А то, ради чего едут и остаются, собирает воедино сам комплекс.</h2>
+  <div class="signoff reveal">Это и есть Mamuli Gremi — и вернуть его в поле лучше не косметикой, а спокойным, управляемым камбэком.</div>
+</section>
+
+<footer>
+  Mamuli Gremi — концепция перезапуска · подготовлено для очной встречи на объекте
+</footer>
+
+<script>
+  // scroll progress
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    progress.style.width = scrolled + '%';
+  });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+  // loop diagram draw + travelling dot
+  const loopSvg = document.querySelector('.loop-svg');
+  const loopPath = document.querySelector('.loop-path');
+  const loopObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        loopPath.classList.add('in');
+        setTimeout(() => loopSvg.classList.add('animate'), 900);
+        loopObserver.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+  loopObserver.observe(loopSvg);
+</script>
+
+</body>
+</html>
